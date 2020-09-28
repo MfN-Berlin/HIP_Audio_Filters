@@ -1,0 +1,6 @@
+.jupyter/
+.local/
+*~
+typescript
+.bash_history
+notebook-home/.ipynb_checkpoints/

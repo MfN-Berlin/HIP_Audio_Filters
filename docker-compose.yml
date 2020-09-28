@@ -1,0 +1,9 @@
+version: '3'
+services:
+   filters-notebook:
+      image: aot29/bioacoustics-notebook:latest
+      container_name: filters-notebook
+      ports:
+        - "9081:8888"
+      volumes:
+        - "./notebook-home:/home/jovyan"
