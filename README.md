@@ -27,12 +27,12 @@ docker exec -ti filters-notebook script -q -c /bin/bash
 While in the notebook, install the R kernel by calling
 
 ```
-Rscript -e "devtools::install_github('IRkernel/IRkernel')";
 Rscript -e "IRkernel::installspec()";
 ```
 
 ## First-time connecting to the notebook
-While in the notebook (see above), call `jupyter notebook list` to get the notebooks security token.
+While in the notebook (see above), call `jupyter notebook list` to get the notebooks security token. Copy this token.
+Type `exit` to return to the host computer.
 
 Open `http://localhost:9081` in a browser
 At the bottom of the page, under "Setup a password", paste the token and set your password.
