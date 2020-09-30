@@ -100,7 +100,7 @@ comp_fft <- function(sndObj) {
 ###############################################
 
 plot_filter_fft <- function(fft, filter.table) {
-    test <- data.frame(fft$freqArray, 10*log10(fft$power))
+    test <- data.frame(fft$freqArray, 10*log10(fft$power)) # 10*log10(fft$power)
     colnames(test) <- c("x", "y")
 
     # add a second axis for filter gain 
@@ -108,17 +108,17 @@ plot_filter_fft <- function(fft, filter.table) {
         trans = identity,
         name = "Filter gain (dB)",
         breaks = c(-40, -60, -80, -100),
-        labels = c(0, -10, -20, -40)
+        labels = c(0, -20, -40, -60)
     )
 
     # plot the filtered data and the filter values
     ggplot() +
         geom_line(data=test, aes(x, y), color="grey") +
-        geom_line(data=filter.table, aes(Frequency.in.kHz*1000, Gain.in.dB*2-40), color="blue") +
-        geom_point(data=filter.table, aes(Frequency.in.kHz*1000, Gain.in.dB*2-40), color="blue") +
+        geom_line(data=filter.table, aes(Frequency.in.kHz*1000, Gain.in.dB-40), color="blue") +
+        geom_point(data=filter.table, aes(Frequency.in.kHz*1000, Gain.in.dB-40), color="blue") +
         labs(x = "Frequency (kHz)", y = "Power (dB)") +
         scale_y_continuous(sec.axis = secondary_y_axis, limits=c(-100, -40)) +
-        scale_x_continuous(limits=c(20, 24000)) +
+        scale_x_log10(limits=c(20, 24000)) +
         theme_bw()
 }
 
@@ -130,7 +130,12 @@ plot_filter_fft <- function(fft, filter.table) {
 #
 ####################################################
 sox_command <- function(inputfile, outputfile, filter.table, Q) {
-    eq_string <- paste("equalizer", filter.table$Frequency.in.kHz*1000, Q, filter.table$Gain.in.dB)
+    # halve the gain as we are doing mono files?
+    eq_string <- paste("equalizer", filter.table$Frequency.in.kHz*1000, Q, filter.table$Gain.in.dB/2)
     eq_string <- paste(eq_string, collapse=" ")
     paste("sox", inputfile, outputfile, eq_string,"bass -20")
 }
+
+# References
+#Carcagno, S. (2013) Basic Sound Processing with R. 
+# http://samcarcagno.altervista.org/blog/basic-sound-processing-r/?doing_wp_cron=1601298903.9209051132202148437500
