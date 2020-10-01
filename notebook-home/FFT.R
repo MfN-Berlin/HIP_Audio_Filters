@@ -19,7 +19,7 @@ library(ggplot2)
 #   the audiogram
 # 
 # * A bass cutoff is applied at the end (-20dB) to remove frequencies which are lower than the lowest EQ 
-#   band (10Hz).
+#   band (20Hz).
 
 
 ###################################
