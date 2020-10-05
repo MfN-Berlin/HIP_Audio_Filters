@@ -1,7 +1,7 @@
 # HIP_Audio_Filters
 Audio Filters für Hearing in Penguins
 
-
+[Filter overview](https://github.com/MfN-Berlin/HIP_Audio_Filters/wiki/Filters)
 
 # Developer documentation
 The following is only relevant if you wish to write your own notebooks.
