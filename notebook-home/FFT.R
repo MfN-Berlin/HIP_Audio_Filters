@@ -118,7 +118,7 @@ plot_filter_fft <- function(fft, filter.table) {
         geom_point(data=filter.table, aes(Frequency.in.kHz*1000, Gain.in.dB-40), color="blue") +
         labs(x = "Frequency (Hz)", y = "Power (dB)") +
         scale_y_continuous(sec.axis = secondary_y_axis, limits=c(-100, -40)) +
-        scale_x_log10(limits=c(20, 24000)) +
+        scale_x_continuous(limits=c(20, 24000)) +
         theme_bw()
 }
 
