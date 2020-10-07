@@ -1,0 +1,16 @@
+Animal,Taxonomy,best_hearing_min,best_hearing_max,hearing_min,hearing_max, Source hearing,voc_min,voc_max,Source voc,clicks_min,clicks_max,
+North Atlantic right whale,Baleen whales,NA,NA,10,22000,"Parks et al., 2007",300,600,"Vabderlaan et al., 2003",NA,NA,NA
+Sperm whale,Toothed whales,5000,20000,100,60000,"Ridgway and Carter, 2001; Siebert et al., 2018",100,30000,"Siebert et al., 2018",5000,24000,"Madsen et al., 2002 in Morisaka & Connor, 2007"
+Beluga whale,Toothed whales,32000,76000,1300,150000,"Sysueva, 2018; Mooney et al, 2018; Garland et al., 2015",1300,5700,"Garland et al., 2015",46600,125700,"Nakamura 1999 in Morisaka & Connor, 2007"
+Killer whale,Toothed whales,5000,81000,600,114000,"Branstetter et al., 2017",1500,18000,"Siebert et al., 2018",45000,80000,"Au et al., 2004 in Morisaka & Connor, 2007"
+Pilot whale,Toothed whales,11200,50000,320,64000,"Pacini et al., 2010; Siebert et al., 2018; Randall et al., 1999 in Morisaka & Connor, 2007",320,21200,"Siebert et al., 2018; Randall et al., 1999 in Morisaka & Connor, 2007",NA,NA,NA
+Bottlenose dolphin,Toothed whales,20000,130000,940,180000,"Finneran et al., 2008; Diaz Lopez, Bernal Shirai, 2009; Wang et al., 1995 cited in Morisaka & Connor, 2007",940,23000,"Diaz Lopez, Bernal Shirai, 2009; Wang et al., 1995 cited in Morisaka & Connor, 2007",34500,131900,"Nakamura, 1999 in Morisaka & Connor, 2007"
+Risso’s dolphin,Toothed whales,22000,90000,1900,110000,"Nachtigall et al., 2005;Corkeron & van Parijs, 2001; Rendell et al., 1999 in Morisaka & Connor, 2007",1900,23800,"Corkeron & van Parijs, 2001; Rendell et al., 1999 in Morisaka & Connor, 2007",30000,100000,"Philips et al., 2003 in Morisaka & Connor, 2007"
+Striped dolphin,Toothed whales,29000,123000,500,160000,"Kastelein et al., 2003",8100,14800,"Oswald et al., 2003 in Morisaka & Connor, 2007",300,100000,"Kastelein et al., 2003"
+Harbour porpoise,Toothed whales,16000,140000,2500,180000,"Kastelein et al., 2002",NA,NA,NA,118900,128400,"Au et al., 1999 in Morisaka & Connor, 2007"
+Harbour seal,Seals,6000,12000,25,40000,"Wolski et al., 2003; Reichmuth et al., 2013; Hanggi & Schustermann, 1994",25,4000,"Hanggi & Schustermann, 1994",,,
+West Indian manatee,Sea cows,8000,32000,950,90500,"Gaspard  et al., 2012",2500,7000,"Nowacek et al., 2003",,,
+Cod,Bony fishes,60,310,30,470,"Chapman & Hawkins, 1973",50,500,"Caiger et al., 2020",,,
+Loggerhead sea turtle,Turtles,100,400,50,1100,"Lavender et al., 2014",NA,NA,,,,
+Grey seal,Seals,NA,NA,100,15000,"Ridgway & Joyce, 1975 cited in Erbe et al., 2016;Asselin et al., 1993",100,3000,"Asselin et al., 1993",,,
+Harp seal,Seals,NA,NA,700,100000,"Terhune & Ronald, 1972 cited in Erbe et al., 2016; Moors & Terhune, 2003",700,6000,"Moors & Terhune, 2003",,,
