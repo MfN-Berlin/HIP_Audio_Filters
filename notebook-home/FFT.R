@@ -92,6 +92,26 @@ comp_fft <- function(sndObj) {
 
 ###############################################
 #
+# Plot the filter values
+#
+###############################################
+
+plot_filter <- function(filter.table) {
+    ggplot(data=filter.table) +
+        geom_smooth(aes(Frequency.in.kHz, Gain.in.dB), color="blue", se=FALSE, fullrange=TRUE) +
+        geom_point(aes(Frequency.in.kHz, Gain.in.dB), color="blue") +
+        geom_label(aes(Frequency.in.kHz, Gain.in.dB, 
+                   label=paste(Frequency.in.kHz, "kHz\n" ,Gain.in.dB,"dB")),
+                   nudge_x = 0.3, nudge_y=-3) +
+        labs(x = "Frequency (kHz)", y = "Weighting (dB)") +
+        scale_y_continuous(limits=c(-50, 0)) +
+        scale_x_log10(limits=c(0.01, 100)) +
+        theme_bw() +
+        annotation_logticks(sides="b")  
+}
+
+###############################################
+#
 # Plot the filtered data and the filter values
 #
 ###############################################
@@ -102,26 +122,21 @@ plot_filter_fft <- function(fft, filter.table) {
 
     # plot the filtered data and the filter values
     ggplot() +
-        geom_line(data=test, aes(x, y + 40), color="grey") + # add 40 dB to test sound (phon?)
-        geom_smooth(data=filter.table, aes(Frequency.in.kHz*1000, Gain.in.dB), color="blue", se=FALSE, fullrange=TRUE) +
-        geom_point(data=filter.table, aes(Frequency.in.kHz*1000, Gain.in.dB), color="blue") +
+        geom_line(data=test, 
+                  aes(x, y + 40), color="grey") + # add 40 dB to test sound
+        geom_smooth(data=filter.table, 
+                    aes(Frequency.in.kHz*1000, Gain.in.dB), color="blue", se=FALSE, fullrange=TRUE) +
+        geom_point(data=filter.table, 
+                   aes(Frequency.in.kHz*1000, Gain.in.dB), color="blue") +
+        geom_label(data=filter.table, 
+                   aes(Frequency.in.kHz*1000, Gain.in.dB, 
+                   label=paste(Frequency.in.kHz, "kHz\n" ,Gain.in.dB,"dB")),
+                   nudge_x = 0.3, nudge_y=-3) +
         labs(x = "Frequency (Hz)", y = "Weighting (dB)") +
-        scale_y_continuous(limits=c(-60, 0)) +
+        scale_y_continuous(limits=c(-50, 0)) +
         scale_x_log10(limits=c(10, 24000)) +
         theme_bw() +
         annotation_logticks(sides="b")  
-
-    # plot the filtered data and the filter values
-#    ggplot() +
-#        geom_line(data=test, aes(x, y), color="grey") +
-#        geom_smooth(data=filter.table, aes(Frequency.in.kHz*1000, Gain.in.dB-40), color="blue", se=FALSE, fullrange=TRUE) +
-#        geom_point(data=filter.table, aes(Frequency.in.kHz*1000, Gain.in.dB-40), color="blue") +
-#        labs(x = "Frequency (Hz)", y = "Power (dB)") +
-#        scale_y_continuous(sec.axis = secondary_y_axis, limits=c(-100, -40)) +
-#        scale_x_log10(limits=c(10, 24000)) +
-#        theme_bw() +
-#        annotation_logticks(sides="b")  
-
 }
 
 ####################################################
@@ -132,7 +147,8 @@ plot_filter_fft <- function(fft, filter.table) {
 #
 ####################################################
 sox_command <- function(inputfile, outputfile, filter.table, Q) {
-    eq_string <- paste("equalizer", filter.table$Frequency.in.kHz*1000, Q, filter.table$Gain.in.dB/2)
+    filter.table.truncated <- filter.table[filter.table$Frequency.in.kHz < 24,]
+    eq_string <- paste("equalizer", filter.table.truncated$Frequency.in.kHz*1000, Q, filter.table.truncated$Gain.in.dB)
     eq_string <- paste(eq_string, collapse=" ")
     paste("sox", inputfile, outputfile, eq_string)
 }
