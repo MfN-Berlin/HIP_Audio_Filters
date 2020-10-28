@@ -1,5 +1,6 @@
 library(tuneR)
 library(ggplot2)
+library(dplyr)
 
 # The filter is constructed based on the audiogram:
 #
@@ -128,6 +129,54 @@ sox_command <- function(inputfile, outputfile, filter.table, Q) {
     eq_string <- paste("equalizer", filter.table.truncated$Frequency.in.kHz*1000, Q, filter.table.truncated$Gain.in.dB)
     eq_string <- paste(eq_string, collapse=" ")
     paste("sox", inputfile, outputfile, eq_string, "norm -3")
+}
+
+####################################################
+# compute the functional hearing frequency range
+#
+# @param audiogram a data frame containing audiogram data with the columns "Frequency.in.kHz" and "SPL"
+# @return a data frame with "eff.freq.low" and "eff.freq.high" in kHz
+####################################################
+def.f.range <- function(audiogram) {
+    eff.freq.low <- min(audiogram$Frequency.in.kHz)
+    eff.freq.high <- max(audiogram$Frequency.in.kHz)    
+    return(data.frame(eff.freq.low, eff.freq.high))
+}
+
+####################################################
+# plot the data, the fit curve, and the effective hearing range
+#
+# @param audiogram a data frame containing audiogram data with the columns "Frequency.in.kHz" and "SPL"
+# @param a data frame with "eff.freq.low" and "eff.freq.high" in kHz, as returned by def.f.range()
+####################################################
+plot.effective <- function(audiogram, range) {
+    label.y.pos = 160 # where to put the range labels
+
+    ggplot(audiogram) +
+        geom_jitter(aes(Frequency.in.kHz, SPL), width=0.05, alpha=0.25) +
+        geom_smooth(aes(Frequency.in.kHz, SPL), color="seagreen", se=FALSE, fullrange=TRUE) +
+        geom_vline(xintercept=range$eff.freq.low, linetype=3) +
+        geom_vline(xintercept=range$eff.freq.high, linetype=3) +
+        annotate("text", 
+                 x=range$eff.freq.low, 
+                 y=label.y.pos, 
+                 label=paste(range$eff.freq.low, "kHz"), 
+                 hjust=-0.1, vjust=1, size=5) +
+        annotate("text", 
+                 x=range$eff.freq.high, 
+                 y=label.y.pos, 
+                 label=paste(round(range$eff.freq.high), "kHz"), 
+                 hjust=1.1, vjust=1, size=5) +
+        annotate("text", 
+                 x=range$eff.freq.low + 2.5, 
+                 y=label.y.pos, 
+                 label="<--- functional hearing range --->", hjust=0.42, vjust=-1, size=5) +
+        theme_classic() +
+        labs(x="Frequency in kHz", y="dB SPL") +
+        scale_x_log10() +
+        scale_y_continuous() +
+        coord_cartesian(xlim=c(0.01, 500), ylim=c(0, 160)) + # this is the range that will actually be shown
+        annotation_logticks(sides="b")
 }
 
 ###################################
