@@ -4,12 +4,12 @@ Audio Filters für Hearing in Penguins
 [Filter overview](https://github.com/MfN-Berlin/HIP_Audio_Filters/wiki/Filters)
 
 
-# Usage
+# Usage: filter audio files
 1. Make sure docker and docker-compose are installed.
 2. Place the audio files to be filtered in `material`.
 3. Start the notebook by calling `docker-compose up -d`.
 4. Call `make`.
-5. The filtered files will be placed in the `production`.
+5. The filtered files will be placed in `production`.
 
 # Developer documentation
 The following is only relevant if you wish to write your own notebooks.
