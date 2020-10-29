@@ -8,6 +8,8 @@ import sys
 import glob
 import argparse
 import configparser
+import traceback
+from arg_utils import parse_args
 from Timer import Timer
 from Filter_Factory import Filter_Factory
 
@@ -17,33 +19,19 @@ if __name__ == "__main__":
     Filter definitions are in
     https://github.com/MfN-Berlin/HIP_Audio_Filters/wiki/Filters
 
+    command-line arguments:
     @arg --in  path to folder with audio files as mounted in container
                relative to notebook-home (e.g. material)
     @arg --out path to folder where audio files will be stored as mounted
                in container relative to notebook-home (e.g. production)
+    @arg --config String path to configuration file with the filter definitions
     """
     try:
         # Performance
         with Timer() as t:
-            # Parse command-line options
+            # Parse command-line arguments
             arg_parser = argparse.ArgumentParser()
-            arg_parser.add_argument(
-                "-i", "--in", dest="infolder",
-                help="path to folder with audio files as mounted in container \
-                relative to notebook-home, e.g. material")
-            arg_parser.add_argument(
-                "-o", "--out", dest="outfolder",
-                help="path to folder where audio files will be stored as \
-                mounted in container relative to notebook-home, e.g. production")
-            arg_parser.add_argument(
-                "-c", "--configuration", dest="configpath",
-                help="path to folder where audio files will be stored as \
-                mounted in container relative to notebook-home, e.g. production")
-            args = arg_parser.parse_args()
-            if (args.infolder is None or args.outfolder is None):
-                raise Exception("Missing folder paths")
-            if (args.configpath is None):
-                raise Exception("Missing path to configuration file")
+            args = parse_args(arg_parser)
 
             # Read the configuration file
             config = configparser.ConfigParser()
@@ -52,14 +40,18 @@ if __name__ == "__main__":
             # list all audio files in material folder
             file_list = glob.glob("%s/*.mp3" % args.infolder)
 
-            # apply filters to all files
-            factory = Filter_Factory(args.outfolder, config)
+            # apply filters to all files in infolder, save to outfolder
+            factory = Filter_Factory(config)
             filters = factory.all_filters()
+            for infile in file_list:
+                for flt in filters:
+                    filters[flt].apply(infile, args.outfolder)
 
         print("\n= Total time =======================")
         print("Total {:06.4f} s\n".format(t.interval))
 
     except Exception as e:
         print(e)
+        print(traceback.format_exc())
         arg_parser.print_help()
         sys.exit(1)

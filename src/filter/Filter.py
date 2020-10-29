@@ -5,17 +5,44 @@ Apply audio filters to all files in material and
 save the filtered files to production
 @author: Alvaro Ortiz for Museum fuer Naturkunde Berlin
 '''
+import os
 
 
-class Filter:
+class AbstractFilter:
     """
-    Filter audio files.
+    Abstract base class for Filter classes
+    """
+
+    def apply(self, infile, outpath):
+        """
+        @param infile String path to file to filter
+        @param outpath String path to where the filtered files will be stored
+        """
+        raise Exception("Unimplemented abstract method")
+
+
+class Sox_Filter(AbstractFilter):
+    """
+    Filter audio files using sox (http://sox.sourceforge.net/).
     Filter definitions are in
     https://github.com/MfN-Berlin/HIP_Audio_Filters/wiki/Filters
     """
 
-    def __init__(self, outfolder):
+    def __init__(self, name, definition):
         """
-        @param outfolder path to store the filtered audio files
+        Filters should be instaantiated through FilterFactory.
+        Filter_Factory reads the name and definition from config.ini
+        @param name String name of the filter
+        @param definition String definition of the filter
         """
-        pass
+        self.name = name
+        self.definition = definition
+
+    def apply(self, infile, outpath):
+        """
+        override abstract method in AbstractFilter
+        """
+        outfile = "%s/M.ft_%s_%s" % (outpath,
+                                     self.name, os.path.basename(infile))
+        command = "sox %s %s %s" % (infile, outfile, self.definition)
+        os.system(command)
