@@ -5,3 +5,10 @@ typescript
 .bash_history
 notebook-home/.ipynb_checkpoints/
 notebook-home/audio
+notebook-home/src
+notebook-home/.python_history
+material
+production
+\#config.ini\#
+.#config.ini
+
