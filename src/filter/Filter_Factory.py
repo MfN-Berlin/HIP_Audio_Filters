@@ -22,7 +22,7 @@ class Filter_Factory:
 
     def _instantiate_filters(self, config):
         """
-        @param ConfiParser a parsed configuration file
+        @param config ConfigParser a parsed configuration file
         @return a dict of filters
         """
         resp = {}
