@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 '''
 Created on 29.10.2020
-Apply audio filters to all files in material and
-save the filtered files to production
+Apply audio filters to a file and save the filtered file
 @author: Alvaro Ortiz for Museum fuer Naturkunde Berlin
 '''
 import os

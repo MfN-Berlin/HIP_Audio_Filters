@@ -37,7 +37,7 @@ if __name__ == "__main__":
             config = configparser.ConfigParser()
             config.read(args.configpath)
 
-            # list all audio files in material folder
+            # list all audio files in input folder
             file_list = glob.glob("%s/*.mp3" % args.infolder)
 
             # apply filters to all files in infolder, save to outfolder
