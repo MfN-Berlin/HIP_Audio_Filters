@@ -28,8 +28,9 @@ if __name__ == "__main__":
         args = parse_args(arg_parser)
 
         # list all audio files in input folder
-        file_list = glob.glob("%s/*.mp3" % args.infolder)
-
+        file_list = []
+        for infolder in args.infolder.split(","):
+            file_list += glob.glob("%s/*.mp3" % infolder)
         # draw spectrograms all files in infolder, save to outfolder
         spectro = Sox_Spectro()
         for infile in file_list:
