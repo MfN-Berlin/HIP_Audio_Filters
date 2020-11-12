@@ -6,9 +6,16 @@ Audio Filters für Hearing in Penguins
 
 # Usage: filter audio files
 1. Make sure docker and docker-compose are installed.
-2. Place the audio files to be filtered in `material`.
+2. Place the audio files to be filtered in `noises`.
 3. Start the notebook by calling `docker-compose up -d`.
-4. Call `make`.
+4. Call `make filter`.
+5. The filtered files will be placed in `production`.
+
+# Usage: make spectrograms from audio files
+1. Make sure docker and docker-compose are installed.
+2. Place the audio files to be filtered in `animals` or `noises` (or both).
+3. Start the notebook by calling `docker-compose up -d`.
+4. Call `make spectro`.
 5. The filtered files will be placed in `production`.
 
 # Developer documentation
