@@ -10,7 +10,7 @@ import argparse
 import configparser
 import traceback
 from arg_utils import parse_args
-from Spectro import Sox_Spectro
+from Visuals import SoxSpectro, FfmpegSpectro
 
 if __name__ == "__main__":
     """
@@ -21,6 +21,7 @@ if __name__ == "__main__":
                relative to notebook-home (e.g. material)
     @arg --out path to folder where audio files will be stored as mounted
                in container relative to notebook-home (e.g. production)
+    @arg --tool sox|ffmpeg
     """
     try:
         # Parse command-line arguments
@@ -32,7 +33,10 @@ if __name__ == "__main__":
         for infolder in args.infolder.split(","):
             file_list += glob.glob("%s/*.mp3" % infolder)
         # draw spectrograms all files in infolder, save to outfolder
-        spectro = Sox_Spectro()
+        if args.tool == 'sox':
+            spectro = SoxSpectro()
+        elif args.tool == 'ffmpeg':
+            spectro = FfmpegSpectro()
         for infile in file_list:
             spectro.draw(infile, args.outfolder)
 
