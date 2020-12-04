@@ -4,7 +4,7 @@ NOISE_DIR:=noises
 ANIMALS_DIR:=animals
 TOOL:=ffmpeg
 
-all:clean filter spectro
+all:clean filter wave spectro
 	echo "look in ./production"
 
 filter:

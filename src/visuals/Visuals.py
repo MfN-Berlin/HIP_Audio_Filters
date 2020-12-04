@@ -68,7 +68,7 @@ class AbstractWave:
         """Returns the path to the out file"""
         outfile = "%s/%s_wave.png" % (
             outpath,
-            os.path.basename(infile).split(".")[0]
+            os.path.basename(infile).rsplit(".", 1)[0]
         )
         return outfile
 
