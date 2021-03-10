@@ -7,7 +7,6 @@ save the filtered files to production
 import sys
 import glob
 import argparse
-import configparser
 import traceback
 from arg_utils import parse_args
 from Visuals import FfmpegWave
@@ -33,10 +32,11 @@ if __name__ == "__main__":
         for infolder in args.infolder.split(","):
             file_list += glob.glob("%s/*.mp3" % infolder)
         # draw spectrograms all files in infolder, save to outfolder
-        if args.tool == 'sox':
-            raise "Only 'tool ffmpeg' is implemented"
-        elif args.tool == 'ffmpeg':
+        if args.tool == 'ffmpeg':
             wave = FfmpegWave()
+        else:
+            raise "Only 'tool ffmpeg' is implemented"
+
         for infile in file_list:
             wave.draw(infile, args.outfolder)
 

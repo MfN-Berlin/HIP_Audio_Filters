@@ -29,7 +29,7 @@ class Sox_Filter(AbstractFilter):
 
     def __init__(self, name, definition):
         """
-        Filters should be instaantiated through FilterFactory.
+        Filters should be instantiated through FilterFactory.
         Filter_Factory reads the name and definition from config.ini
         @param name String name of the filter
         @param definition String definition of the filter
@@ -41,7 +41,7 @@ class Sox_Filter(AbstractFilter):
         """
         override abstract method in AbstractFilter
         """
-        outfile = "%s/M.ft_%s_%s" % (outpath,
-                                     self.name, os.path.basename(infile))
+        outfile = "%s/Filtered_%s_%s" % (outpath,
+                                         self.name, os.path.basename(infile))
         command = "sox %s %s %s" % (infile, outfile, self.definition)
         os.system(command)

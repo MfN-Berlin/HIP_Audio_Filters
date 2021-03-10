@@ -14,7 +14,7 @@ class AbstractSpectro:
         """Returns the path to the out file"""
         outfile = "%s/%s_spg.png" % (
             outpath,
-            os.path.basename(infile).split(".")[0]
+            os.path.basename(infile).rsplit(".", 1)[0]
         )
         return outfile
 
@@ -81,7 +81,7 @@ class AbstractWave:
 
 class FfmpegWave(AbstractWave):
     """
-    Draw spectrograms using ffmpeg (https://ffmpeg.org/ffmpeg-filters.html#showspectrumpic).
+    Draw wave using ffmpeg (https://ffmpeg.org/ffmpeg-filters.html#showspectrumpic).
     """
 
     def draw(self, infile, outpath):
