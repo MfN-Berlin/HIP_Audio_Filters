@@ -41,7 +41,7 @@ pitch:
 	cp -r src notebook-home
 	cp -r ${ANIMALS_DIR} notebook-home
 	cp -r ${NOISE_DIR} notebook-home
-	docker exec -i ${CONTAINER_NAME} bash -c 'python ./src/post/pitch.py -i ${ANIMALS_DIR},${NOISE_DIR} -o production -p 2'
+	docker exec -i ${CONTAINER_NAME} bash -c 'python ./src/post/pitch.py -i ${ANIMALS_DIR},${NOISE_DIR} -o production -p 3'
 	-rm -Rf notebook-home/src
 	-rm -Rf notebook-home/${ANIMALS_DIR}
 	-rm -Rf notebook-home/${NOISE_DIR}
